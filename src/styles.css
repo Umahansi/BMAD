@@ -1,0 +1,57 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 100%;
+  max-width: 32rem;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.add-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.add-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.add-form input[type='text'] {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+.add-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.empty-hint {
+  margin-top: 1.5rem;
+  color: #666;
+}
+
+.task-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  max-height: 70vh;
+  overflow-y: auto;
+}

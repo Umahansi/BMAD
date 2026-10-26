@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "1da70220-8afd-4f45-8424-2f310753f37e",
+  "name": "umasha",
+  "description": "simple todo one screen with the tasks add and delete and complete",
+  "createdAt": "2026-10-26T11:07:23.575Z",
+  "updatedAt": "2026-10-26T11:14:02.732Z",
+  "documents": {
+    "what-you-asked-for": "_bmad-output/planning-artifacts/briefs/brief-umasha-2026-10-26/brief.md",
+    "requirements": "_bmad-output/planning-artifacts/prds/prd-umasha-2026-10-26/prd.md",
+    "how-it-will-be-built": "_bmad-output/planning-artifacts/architecture/architecture-umasha-2026-10-26/ARCHITECTURE-SPINE.md",
+    "work-items": "_bmad-output/planning-artifacts/epics/epics-umasha-2026-10-26/epics.md"
+  },
+  "phasesDone": [
+    "understanding",
+    "planning",
+    "designing",
+    "building"
+  ]
+}

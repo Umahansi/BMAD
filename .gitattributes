@@ -1,0 +1,10 @@
+# Normalise line endings, so a document edited on Windows does not show up as
+# changed in every line for a teammate on a Mac.
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.ts text eol=lf
+*.css text eol=lf
+*.html text eol=lf
