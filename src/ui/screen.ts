@@ -7,6 +7,7 @@ export function render(
   container: HTMLElement,
   tasks: Task[],
   onAdd: (text: string) => boolean,
+  onToggle: (id: string) => void,
   focusInput = false,
 ): void {
   container.textContent = ''
@@ -54,7 +55,24 @@ export function render(
   for (const task of tasks) {
     const item = document.createElement('li')
     item.className = 'task-item'
-    item.textContent = task.text
+    if (task.done) {
+      item.classList.add('done')
+    }
+
+    const label = document.createElement('label')
+    label.className = 'task-label'
+
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.checked = task.done
+    checkbox.addEventListener('change', () => onToggle(task.id))
+
+    const text = document.createElement('span')
+    text.className = 'task-text'
+    text.textContent = task.text
+
+    label.append(checkbox, text)
+    item.append(label)
     list.append(item)
   }
 

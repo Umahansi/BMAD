@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { add, MAX_TASK_LENGTH, reduce, type Task } from '../src/core/index.ts'
+import { add, MAX_TASK_LENGTH, reduce, toggle, type Task } from '../src/core/index.ts'
 
 describe('core', () => {
   it('exposes MAX_TASK_LENGTH as 200', () => {
@@ -85,5 +85,58 @@ describe('add/reduce', () => {
 
     expect(next).toHaveLength(1)
     expect(next[0].text).toHaveLength(MAX_TASK_LENGTH)
+  })
+})
+
+describe('toggle/reduce', () => {
+  it('flips an Open task to Done', () => {
+    const initial: Task[] = [{ id: 'a', text: 'Buy milk', done: false }]
+
+    const next = reduce(initial, toggle('a'))
+
+    expect(next).not.toBe(initial)
+    expect(next[0]).toEqual({ id: 'a', text: 'Buy milk', done: true })
+  })
+
+  it('flips a Done task back to Open', () => {
+    const initial: Task[] = [{ id: 'a', text: 'Buy milk', done: true }]
+
+    const next = reduce(initial, toggle('a'))
+
+    expect(next[0]).toEqual({ id: 'a', text: 'Buy milk', done: false })
+  })
+
+  it('returns the same state reference for an unknown id', () => {
+    const initial: Task[] = [{ id: 'a', text: 'Buy milk', done: false }]
+
+    const next = reduce(initial, toggle('missing'))
+
+    expect(next).toBe(initial)
+  })
+
+  it('preserves order and leaves other tasks as the same references', () => {
+    const a: Task = { id: 'a', text: 'First', done: false }
+    const b: Task = { id: 'b', text: 'Second', done: false }
+    const c: Task = { id: 'c', text: 'Third', done: false }
+    const initial: Task[] = [a, b, c]
+
+    const next = reduce(initial, toggle('b'))
+
+    expect(next).toHaveLength(3)
+    expect(next[0]).toBe(a)
+    expect(next[2]).toBe(c)
+    expect(next[1]).not.toBe(b)
+    expect(next[1]).toEqual({ id: 'b', text: 'Second', done: true })
+  })
+
+  it('does not mutate the previous state array or task object', () => {
+    const task: Task = { id: 'a', text: 'Buy milk', done: false }
+    const initial: Task[] = [task]
+
+    reduce(initial, toggle('a'))
+
+    expect(initial).toHaveLength(1)
+    expect(initial[0]).toBe(task)
+    expect(task.done).toBe(false)
   })
 })
