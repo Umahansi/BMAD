@@ -55,3 +55,8 @@ body {
   max-height: 70vh;
   overflow-y: auto;
 }
+
+.task-item {
+  padding: 0.5rem 0.25rem;
+  overflow-wrap: anywhere;
+}

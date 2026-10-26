@@ -3,7 +3,12 @@ import { MAX_TASK_LENGTH } from '../core/index.ts'
 
 const EMPTY_HINT = 'No tasks yet. Add one above.'
 
-export function render(container: HTMLElement, tasks: Task[]): void {
+export function render(
+  container: HTMLElement,
+  tasks: Task[],
+  onAdd: (text: string) => boolean,
+  focusInput = false,
+): void {
   container.textContent = ''
 
   const form = document.createElement('form')
@@ -27,6 +32,10 @@ export function render(container: HTMLElement, tasks: Task[]): void {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault()
+    const added = onAdd(input.value)
+    if (!added) {
+      input.focus()
+    }
   })
 
   form.append(label, input, addButton)
@@ -41,5 +50,17 @@ export function render(container: HTMLElement, tasks: Task[]): void {
 
   const list = document.createElement('ul')
   list.className = 'task-list'
+
+  for (const task of tasks) {
+    const item = document.createElement('li')
+    item.className = 'task-item'
+    item.textContent = task.text
+    list.append(item)
+  }
+
   container.append(list)
+
+  if (focusInput) {
+    input.focus()
+  }
 }

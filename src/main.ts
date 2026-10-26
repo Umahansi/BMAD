@@ -1,14 +1,23 @@
 import './styles.css'
-import type { Task } from './core/index.ts'
+import { add, reduce, type Task } from './core/index.ts'
 import { render } from './ui/screen.ts'
 
 const root = document.querySelector<HTMLDivElement>('#app')!
 
 let state: Task[] = []
 
-function setState(next: Task[]): void {
+function setState(next: Task[], focusInput = false): void {
   state = next
-  render(root, state)
+  render(root, state, handleAddSubmit, focusInput)
+}
+
+function handleAddSubmit(rawText: string): boolean {
+  const next = reduce(state, add(rawText))
+  const grew = next.length > state.length
+  if (grew) {
+    setState(next, true)
+  }
+  return grew
 }
 
 setState(state)
